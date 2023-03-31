@@ -91,9 +91,8 @@ class AudioCapture:
 
         wf = wave.open(file_path, 'wb')
         wf.setnchannels(self._num_channels)
-        wf.setsampwidth(pyaudio.PyAudio().get_sample_size(self._format_size))
+        wf.setsampwidth(2)
         wf.setframerate(self._sample_rate)
-        wf.setnframes(self._chunk_size)
         wf.writeframes(b''.join(audio_data))
         wf.close()
 
@@ -107,7 +106,7 @@ if __name__ == "__main__":
     
     # Getting the values as params
     is_record_topic = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/is_record_topic", "audio_capture/is_record")
-    audio_topic = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/audio_topic", "audio/audio")
+    audio_topic = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/audio_topic", "/qt_respeaker_app/channel0")
     output_directory = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/output_directory", "/root/audio")
     num_channels = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/num_channels", 1)
     sample_rate = rospy.get_param("/data_capture/"+args.instance_id+"/audio_capture/sample_rate", 16000)
